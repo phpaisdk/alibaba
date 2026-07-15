@@ -30,27 +30,27 @@ final class AlibabaProvider extends BaseProvider implements EmbeddingProviderInt
         return AlibabaOptions::PROVIDER_NAME;
     }
 
-    public function textModel(string $id): TextModelInterface
+    protected function textModel(string $id): TextModelInterface
     {
         return new AlibabaTextModel($id, $this->options);
     }
 
-    public function embeddingModel(string $id): EmbeddingModelInterface
+    protected function embeddingModel(string $id): EmbeddingModelInterface
     {
         return new AlibabaEmbeddingModel($id, $this->options);
     }
 
-    public function imageModel(string $id): ImageModelInterface
+    protected function imageModel(string $id): ImageModelInterface
     {
         return new AlibabaImageModel($id, $this->options);
     }
 
-    public function speechModel(string $id): SpeechModelInterface
+    protected function speechModel(string $id): SpeechModelInterface
     {
         return new AlibabaSpeechModel($id, $this->options);
     }
 
-    public function videoModel(string $id): VideoModelInterface
+    protected function videoModel(string $id): VideoModelInterface
     {
         return new AlibabaVideoModel($id, $this->options);
     }

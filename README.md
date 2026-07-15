@@ -4,7 +4,7 @@ Supports Qwen text generation and streaming, tools, structured output, reasoning
 
 ```php
 $video = Generate::video('A cinematic city at night')
-    ->model(Alibaba::video('wan2.7-t2v'))
+    ->model(Alibaba::model('wan2.7-t2v'))
     ->resolution('1920x1080')
     ->duration(5)
     ->run(timeout: 600);
