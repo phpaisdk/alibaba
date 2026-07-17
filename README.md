@@ -19,3 +19,14 @@ $video = Generate::video('A cinematic city at night')
 ```
 
 Configure `ALIBABA_API_KEY`, plus region/workspace-specific `baseUrl` and `videoBaseUrl` when required by Model Studio.
+
+## Documentation
+
+- [PHP AI SDK documentation](https://phpaisdk.com/docs)
+- [Alibaba documentation](https://phpaisdk.com/docs/alibaba)
+
+## Community
+
+- [Contributing](https://github.com/phpaisdk/.github/blob/main/CONTRIBUTING.md)
+- [Support](https://github.com/phpaisdk/.github/blob/main/SUPPORT.md)
+- For private security reports, email [security@phpaisdk.com](mailto:security@phpaisdk.com).
