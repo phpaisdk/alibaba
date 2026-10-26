@@ -34,8 +34,8 @@ it('exposes every implemented Alibaba capability', function () {
     expect($p)->toBeInstanceOf(TextProviderInterface::class)->toBeInstanceOf(ImageProviderInterface::class)->toBeInstanceOf(SpeechProviderInterface::class)->toBeInstanceOf(EmbeddingProviderInterface::class)->toBeInstanceOf(VideoProviderInterface::class);
 });
 it('starts Alibaba video tasks', function () {
-    $c = new AlibabaFakeClient;
-    $f = new Psr17Factory;
+    $c = new AlibabaFakeClient();
+    $f = new Psr17Factory();
     Alibaba::create([
         'apiKey' => 'key',
         'videoBaseUrl' => 'https://dashscope',

@@ -43,10 +43,10 @@ final class AlibabaVideoModel extends BaseModel implements VideoModelInterface
         }if ($r->video !== null) {
             $input['video_url'] = $this->media($r->video);
         }if ($mode === 'i2v' && $r->image) {
-            $input['img_url'] = $r->image->source() === ContentSource::Url ? $r->image->url() : 'data:'.$r->image->mimeType().';base64,'.$r->image->base64Data();
+            $input['img_url'] = $r->image->source() === ContentSource::Url ? $r->image->url() : 'data:' . $r->image->mimeType() . ';base64,' . $r->image->base64Data();
         }if ($mode === 'r2v' && is_array($o['referenceUrls'] ?? null)) {
             $input['reference_urls'] = $o['referenceUrls'];
-        }$params = array_filter(['duration' => $r->output?->duration, 'seed' => $r->output?->seed], fn ($v) => $v !== null);
+        }$params = array_filter(['duration' => $r->output?->duration, 'seed' => $r->output?->seed], fn($v) => $v !== null);
         if ($r->output?->resolution) {
             $params[$mode === 'i2v' ? 'resolution' : 'size'] = $mode === 'i2v' ? $this->resolution($r->output->resolution) : str_replace('x', '*', $r->output->resolution);
         }foreach (['promptExtend' => 'prompt_extend', 'shotType' => 'shot_type', 'watermark' => 'watermark', 'audio' => 'audio'] as $k => $n) {
@@ -64,7 +64,7 @@ final class AlibabaVideoModel extends BaseModel implements VideoModelInterface
 
     public function poll(VideoJob $j): VideoJob
     {
-        $p = $this->runner($this->options->sdk)->getJson(Url::joinPath($this->options->videoBaseUrl, '/api/v1/tasks/'.rawurlencode($j->id)), $this->options->authHeaders(), $this->provider());
+        $p = $this->runner($this->options->sdk)->getJson(Url::joinPath($this->options->videoBaseUrl, '/api/v1/tasks/' . rawurlencode($j->id)), $this->options->authHeaders(), $this->provider());
         $s = (string) ($p['output']['task_status'] ?? '');
         if ($s === 'SUCCEEDED') {
             $url = $p['output']['video_url'] ?? null;
@@ -78,7 +78,7 @@ final class AlibabaVideoModel extends BaseModel implements VideoModelInterface
     private function resolution(string $r): string
     {
         return match ($r) {
-            '1280x720','720x1280','960x960' => '720P','1920x1080','1080x1920','1440x1440' => '1080P','832x480','480x832','624x624' => '480P',default => $r
+            '1280x720','720x1280','960x960' => '720P','1920x1080','1080x1920','1440x1440' => '1080P','832x480','480x832','624x624' => '480P',default => $r,
         };
     }
 
@@ -86,6 +86,6 @@ final class AlibabaVideoModel extends BaseModel implements VideoModelInterface
     {
         return $content->source() === ContentSource::Url
             ? (string) $content->url()
-            : 'data:'.$content->mimeType().';base64,'.$content->base64Data();
+            : 'data:' . $content->mimeType() . ';base64,' . $content->base64Data();
     }
 }

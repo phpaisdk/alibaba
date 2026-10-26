@@ -34,7 +34,7 @@ final class AlibabaImageModel extends BaseModel implements ImageModelInterface
         $content = [['text' => $r->prompt]];
         foreach ((array) ($o['referenceImages'] ?? []) as $image) {
             $content[] = ['image' => $image];
-        }$parameters = array_filter(['n' => $r->count, 'size' => $r->size, 'aspect_ratio' => $r->aspectRatio, 'seed' => $r->seed], fn ($v) => $v !== null);
+        }$parameters = array_filter(['n' => $r->count, 'size' => $r->size, 'aspect_ratio' => $r->aspectRatio, 'seed' => $r->seed], fn($v) => $v !== null);
         $parameters = array_replace($parameters, array_diff_key($o, array_flip(['referenceImages'])));
         $p = $this->runner($this->options->sdk)->postJson(Url::joinPath($this->options->videoBaseUrl, '/api/v1/services/aigc/multimodal-generation/generation'), ['model' => $this->modelId, 'input' => ['messages' => [['role' => 'user', 'content' => $content]]], 'parameters' => $parameters], $this->options->authHeaders(), $this->provider());
         $images = [];
