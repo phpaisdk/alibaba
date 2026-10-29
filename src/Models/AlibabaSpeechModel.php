@@ -13,11 +13,14 @@ use AiSdk\Requests\SpeechRequest;
 use AiSdk\Responses\SpeechResponse;
 use AiSdk\Results\AudioData;
 use AiSdk\Support\Usage;
+use AiSdk\Utils\Http\RemoteFetch;
 use AiSdk\Utils\Support\Url;
+use Closure;
 
 final class AlibabaSpeechModel extends BaseModel implements SpeechModelInterface
 {
-    public function __construct(private readonly string $modelId, private readonly AlibabaOptions $options) {}
+    /** @param (Closure(string): list<string>)|null $dnsResolver */
+    public function __construct(private readonly string $modelId, private readonly AlibabaOptions $options, private readonly ?Closure $dnsResolver = null) {}
 
     public function provider(): string
     {
@@ -40,8 +43,8 @@ final class AlibabaSpeechModel extends BaseModel implements SpeechModelInterface
             $data = base64_decode($base64, true);
         } elseif (is_string($url) && $url !== '') {
             $sdk = $this->options->sdk ?? Generate::sdk();
-            $res = $sdk->httpClient->sendRequest($sdk->requestFactory->createRequest('GET', $url));
-            $data = (string) $res->getBody();
+            $res = RemoteFetch::bytes($sdk, $url, dnsResolver: $this->dnsResolver);
+            $data = $res->body;
         } else {
             throw InvalidResponseException::forProvider($this->provider(), 'Alibaba TTS returned no audio.', ['body' => $p]);
         }if ($data === false || $data === '') {

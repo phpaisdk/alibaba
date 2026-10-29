@@ -2,6 +2,11 @@
 
 Notable changes to `aisdk/alibaba`. Release notes are also published at https://github.com/phpaisdk/alibaba/releases.
 
+## Unreleased (v0.10.2)
+
+- Bound returned speech audio downloads and reject unsafe remote destinations.
+- Requires `aisdk/core ^0.10.2` at release.
+
 ## v0.10.0 — 2026-10-29
 
 ### What's new
